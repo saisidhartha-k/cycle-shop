@@ -16,7 +16,7 @@ getCycles()
   const headers = new HttpHeaders({
     'Authorization': 'Bearer ' + localStorage.getItem('token') 
   });
-  return this._http.get('http://localhost:8080/api/cycles',  {headers: headers});
+  return this._http.get('http://localhost:8080/api/cycles',  {headers: headers}) ;
 }
 
 getBorrowedCycles()

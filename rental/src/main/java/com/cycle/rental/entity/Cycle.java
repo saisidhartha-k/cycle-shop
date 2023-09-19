@@ -10,7 +10,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Cycles {
+public class Cycle {
     
    
     @Id

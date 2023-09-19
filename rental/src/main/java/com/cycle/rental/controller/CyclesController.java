@@ -1,158 +1,85 @@
 package com.cycle.rental.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties.Authentication;
-import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties.Jwt;
-import org.springframework.context.annotation.Role;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.ui.Model;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import com.cycle.rental.entity.BorrowedCycles;
-import com.cycle.rental.entity.Cycles;
-import com.cycle.rental.entity.User;
-import com.cycle.rental.repository.BorrowedCyclesRepository;
-import com.cycle.rental.repository.CyclesRepository;
-import com.cycle.rental.repository.UserRepository;
-
-import jakarta.annotation.security.RolesAllowed;
+import com.cycle.rental.entity.Cycle;
+import com.cycle.rental.entity.Items;
+import com.cycle.rental.service.CartService;
+import com.cycle.rental.service.CycleService;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/api/cycles")
+@RequestMapping("/api")
 public class CyclesController  {
 
     @Autowired
-    private CyclesRepository cyclesRepository;
+    private CycleService cycleService;
 
     @Autowired
-    private BorrowedCyclesRepository borrowedCyclesRepository;
-
-    @Autowired 
-    private UserRepository userRepository;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private CartService cartService;
 
     @GetMapping
-     //@RolesAllowed("ROLE_ADMIN")
-      //  @Role("ADMIN")
-     // @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-
-    public Iterable<Cycles> getCyclesList(Principal principal,Authentication authentication) {
+    public List<Cycle> getCyclesList(Principal principal,Authentication authentication) {
         // Jwt jwt = (jwt) authentication.getprincipal();
-        return cyclesRepository.findAll();
+        return cycleService.listAvailableCycles();
     }
 
-    @PostMapping("/borrow/{id}")
-    //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
-
-    public BorrowedCycles borrowCycle(@PathVariable int id) {
-        Optional<Cycles> cycleOptional = cyclesRepository.findById(id);
-
-        if (cycleOptional.isPresent()) {
-            Cycles borrowedCycle = cycleOptional.get();
-
-         
-            Optional<BorrowedCycles> borrowedOptional = borrowedCyclesRepository.findById(id);
-
-            if (borrowedOptional.isPresent() && borrowedCycle.getStock() != 0) {
-                BorrowedCycles borrowedCycleEntity = borrowedOptional.get();
-                borrowedCycleEntity.setStock(borrowedCycleEntity.getStock() + 1);
-                borrowedCycle.setStock(borrowedCycle.getStock() - 1);
-               return  borrowedCyclesRepository.save(borrowedCycleEntity);
-            } 
-            
-            else 
-             {
-                if(borrowedCycle.getStock() != 0)
-                {
-                    BorrowedCycles borrowedEntity = new BorrowedCycles();
-                    borrowedEntity.setBorrowedCycleId(borrowedCycle.getCycleId());
-                    borrowedEntity.setCycleName(borrowedCycle.getCycleName());
-                    borrowedEntity.setStock(borrowedEntity.getStock() + 1);
-                    borrowedEntity.setPrice(borrowedCycle.getPrice());
-                    borrowedCycle.setStock(borrowedCycle.getStock() - 1);
-                    
-                    return borrowedCyclesRepository.save(borrowedEntity);
-                }
-            }
-        }
-        return null;
+    @PostMapping("/{id}/borrow")
+    public String borrowCycle(@PathVariable int id,@RequestParam int count) {
+        cycleService.borrowCycle(id, count);
+        return "Added to Cart";
     }
 
-    @PostMapping("/return/{id}")
-    public Cycles returnCycle(@PathVariable int id) {
-        Optional<BorrowedCycles> cycleOptional = borrowedCyclesRepository.findById(id);
-
-        if (cycleOptional.isPresent()) {
-            BorrowedCycles borrowedCycle = cycleOptional.get();
-
-            if (borrowedCycle.getStock() != 0) {
-                borrowedCycle.setStock(borrowedCycle.getStock() - 1);
-
-                if (borrowedCycle.getStock() == 0) {
-                    borrowedCyclesRepository.delete(borrowedCycle);
-                }
-
-                Optional<Cycles> returnedCycleOptional = cyclesRepository.findById(borrowedCycle.getBorrowedCycleId());
-
-                if (returnedCycleOptional.isPresent()) {
-                    Cycles returnedCycleEntity = returnedCycleOptional.get();
-                    returnedCycleEntity.setStock(returnedCycleEntity.getStock() + 1);
-                    return cyclesRepository.save(returnedCycleEntity);
-                }
-            }
-        }
-        return null;
+    @PostMapping("/{id}/return")
+    public String returnCycle(@PathVariable int id,@RequestParam int count) {
+        cycleService.returnCycle(id, count);
+        return "Returned to Cart";
     }
 
     @PutMapping("/add")
-    public Cycles addCycle(@RequestBody Cycles newCycle) {
-       return cyclesRepository.save(newCycle);
+    public String addCycle(@RequestBody Cycle newCycle) {
+       cycleService.save(newCycle);
+       return "Added new Cycle";
     }
 
     @GetMapping("/restock")
-       // @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-
-    public Iterable<Cycles> getCyclesStock() {
-        return cyclesRepository.findAll();
+    public Iterable<Cycle> getCyclesStock() {
+        return cycleService.listAvailableCycles();
     }
 
-    @PutMapping("/addStock/{id}")
-    public Cycles addStock(@PathVariable int id) {
-        Optional<Cycles> cycleOptional = cyclesRepository.findById(id);
-
-        if (cycleOptional.isPresent()) {
-            Cycles cycle = cycleOptional.get();
-            cycle.setStock(cycle.getStock() + 1);
-            return cyclesRepository.save(cycle);
-        }
-        return null;
+    @PostMapping("/{id}/restock")
+    public String addStock(@PathVariable int id,@RequestParam int count){
+        cycleService.restockBy(id, count);
+        return "Restocked Successfully";
     }
 
-    @GetMapping("/borrowed")
-
-    public List<BorrowedCycles> getBorrowedList() {
-        return borrowedCyclesRepository.findAll();
+    @PostMapping("/{id}/add-cart")
+    public List<Items> addToCart(@PathVariable int id,@RequestParam int count){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	String username = authentication.getName();
+        return cartService.addToCart(id, count,username);
     }
 
-    @PostMapping("/addUser")
-    public User addUser(@RequestBody User newUser)
-    {
-        return userRepository.save(newUser);
+    @PostMapping("/{id}/remove-cart")
+    public String removeFromCart(@PathVariable int id,@RequestParam int count){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	String username = authentication.getName();
+        return cartService.removeFromCart(id, count,username);
     }
 
-    @GetMapping("/Users")
-     public Iterable<User> showUsers() {
-        return userRepository.findAll();
+    @PostMapping("/check-out")
+    public List<Items> CheckOut(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	String username = authentication.getName();
+        return cartService.checkOut(username);
     }
+    
 
 }

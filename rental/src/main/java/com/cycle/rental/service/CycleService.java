@@ -9,31 +9,31 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cycle.rental.entity.Cycles;
+import com.cycle.rental.entity.Cycle;
 import com.cycle.rental.exception.CycleShopBusinessException;
-import com.cycle.rental.repository.CyclesRepository;
+import com.cycle.rental.repository.CycleRepository;
 
 
 @Service
 public class CycleService {
     @Autowired
-    private CyclesRepository cycleRepository;
+    private CycleRepository cycleRepository;
 
-    public List<Cycles> listCycles() {
+    public List<Cycle> listCycles() {
         var listFromDB = cycleRepository.findAll();
-        var cycleList = new ArrayList<Cycles>();
+        var cycleList = new ArrayList<Cycle>();
         listFromDB.forEach(cycleList::add);
         return cycleList;
     }
 
-    public List<Cycles> listAvailableCycles() {
+    public List<Cycle> listAvailableCycles() {
         return listCycles()
         .stream()
         .filter(cycle -> cycle.getNumAvailable()> 0)
         .collect(Collectors.toList());
     }
 
-    public Cycles findByIdOrThrow404(long id) {
+    public Cycle findByIdOrThrow404(long id) {
         var optCycle = cycleRepository.findById((int) id);
         if (optCycle.isEmpty()) {
             throw new CycleShopBusinessException(
@@ -67,6 +67,10 @@ public class CycleService {
         var cycle = findByIdOrThrow404(id);
         cycle.setStock(cycle.getStock() + count);
         cycleRepository.save(cycle);
+    }
+
+    public void save(Cycle newCycle) {
+        cycleRepository.save(newCycle);
     }
 
 }

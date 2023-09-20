@@ -106,12 +106,14 @@ public class CartService {
             if(bag.isPresent()){
                 bag.get().getItems().addAll(cart.get().getItems());
                 items = bag.get().getItems();
+                bagRepository.save(bag.get());
             }
             else{
                 Bag bag2 = new Bag();
                 bag2.setUser(user);
                 bag2.getItems().addAll(cart.get().getItems());
                 items = bag2.getItems();
+                bagRepository.save(bag2);
             }
             cartRepository.delete(cart.get());
             return items;

@@ -6,8 +6,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import com.cycle.rental.entity.Bag;
 import com.cycle.rental.entity.Cycle;
 import com.cycle.rental.entity.Items;
+import com.cycle.rental.service.BagService;
 import com.cycle.rental.service.CartService;
 import com.cycle.rental.service.CycleService;
 
@@ -24,6 +26,9 @@ public class CyclesController  {
 
     @Autowired
     private CartService cartService;
+
+    @Autowired
+    private BagService bagService;
 
     @GetMapping
     public List<Cycle> getCyclesList(Principal principal,Authentication authentication) {
@@ -81,5 +86,9 @@ public class CyclesController  {
         return cartService.checkOut(username);
     }
     
+    @GetMapping("/all-Purchases")
+    public List<Bag> AdminPurchaseView(){
+        return bagService.getAllBags();
+    }
 
 }

@@ -25,6 +25,7 @@ toggleBorrowedCyclesVisibility() {
   this.showBorrowedCycles = !this.showBorrowedCycles;
 }
 
+// write a mapping to get the data from backend
 returnCycle(id:number)
   {
     // console.log(id);

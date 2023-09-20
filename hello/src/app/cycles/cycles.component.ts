@@ -19,7 +19,7 @@ export class CyclesComponent {
     });
   }
 
-  
+
   toggleDataVisibility() {
     this.showCycles = !this.showCycles;
   }
@@ -27,11 +27,12 @@ export class CyclesComponent {
   borrowCycle(id: number) {
 
 
-    this.cycleService.borrowCycles(id).subscribe(
+    this.cycleService.addToCart(id,1).subscribe(
 
       (response: any) => {
 
         console.log('PUT request successful:', response);
+        // this.cycleService.setData(response);
         this.ngOnInit();
       },
 

@@ -20,9 +20,8 @@ export class AuthService {
       tap(res => {
 
         localStorage.setItem('token', res['token']);
-
+        console.log(res['token']);
         localStorage.setItem('username', res['username']);
-
       })
 
     );

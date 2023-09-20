@@ -8,7 +8,8 @@ import { FormsModule } from '@angular/forms';
 import { CyclesComponent } from './cycles/cycles.component';
 import { BorrowedCyclesComponent } from './borrowed-cycles/borrowed-cycles.component';
 import { AddCyclesComponent } from './add-cycles/add-cycles.component';
-import { LoginFormComponent } from './login-form/login-form.component'; // Import FormsModule
+import { LoginFormComponent } from './login-form/login-form.component';
+import { CartComponent } from './cart/cart.component'; // Import FormsModule
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { LoginFormComponent } from './login-form/login-form.component'; // Impor
     CyclesComponent,
     BorrowedCyclesComponent,
     AddCyclesComponent,
-    LoginFormComponent
+    LoginFormComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,

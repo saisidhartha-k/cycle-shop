@@ -1,0 +1,53 @@
+/* Define styles for the card */
+.card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 600px; /* Adjust the maximum width as needed */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Style the table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th, table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+/* Style the button */
+button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Center the table and button text */
+table th, table td, button {
+    text-align: center;
+}
+
+/* Add some spacing around the button */
+button {
+    margin: 4px;
+}
+
+/* Center the card horizontally */
+.card {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

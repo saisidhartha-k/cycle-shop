@@ -122,4 +122,11 @@ public class CyclesController {
 
 	}
 
+    @PostMapping("/return-Purchases")
+    public String returnPurchases(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	String username = authentication.getName();
+        return bagService.returnFromBag(username);
+    }
+
 }

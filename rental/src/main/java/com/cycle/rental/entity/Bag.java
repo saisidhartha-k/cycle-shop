@@ -32,4 +32,6 @@ public class Bag {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "bag_item_id")
     private List<Items> items = new ArrayList<>();
+    
+    private long totalAmount;
 }

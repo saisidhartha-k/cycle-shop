@@ -35,13 +35,17 @@ public class CartService {
 
     @Autowired BagRepository bagRepository;
 
-    public List<Items> addToCart(int cycleId,int quantity,String name){
+    public String addToCart(int cycleId,int quantity,String name){
         User user = userRepository.findByName(name).get();
         Optional<Cart> cart = cartRepository.findByUser(user);
         List<Items> items = new ArrayList<>();
         Items item = new Items();
             Optional<Cycle> cycle = cycleRepository.findById(cycleId);
+            if(cycle.get().getNumBorrowed() + quantity <= cycle.get().getStock()) {
             cycle.get().setNumBorrowed(cycle.get().getNumBorrowed()+quantity);
+            }else {
+            	return "OutOfStock";
+            }
             cycleRepository.save(cycle.get());
             if(cycle.isPresent()){
                 item.setCycle(cycle.get());
@@ -68,8 +72,9 @@ public class CartService {
             items = newCart.getItems();
         }
         
-        return items;
+        return "Added To Cart";
     }
+    
     public String removeFromCart(int cycleId,int quantity,String name){
         User user = userRepository.findByName(name).get();
         Optional<Cart> cart = cartRepository.findByUser(user);
@@ -87,17 +92,29 @@ public class CartService {
             .peek(ite -> {
             if (ite.getCycle().getCycleId() == cycleId) {
             ite.getCycle().setNumBorrowed(ite.getCycle().getNumBorrowed() - quantity);
+            ite.setQuantity(ite.getQuantity()-quantity);
+            cycleRepository.save(ite.getCycle());
             }
             })
             .filter(ite -> ite.getCycle().getCycleId() != cycleId)
             .collect(Collectors.toList());
+            
+            cart.get().getItems().removeIf(ite -> {
+                if (ite.getCycle().getCycleId() == cycleId) {
+                    return ite.getQuantity() == 0;
+                }
+                return false;
+            });
+            
+            cartRepository.save(cart.get());
             return "Removed From Cart";
+            
         }
         else{
             return "Cart Empty";
         }
     }
-    public List<Items> checkOut(String name){
+    public List<Items> checkOut(String name,long amount){
         User user = userRepository.findByName(name).get();
         Optional<Cart> cart = cartRepository.findByUser(user);
         List<Items> items = new ArrayList<>();
@@ -106,12 +123,14 @@ public class CartService {
             if(bag.isPresent()){
                 bag.get().getItems().addAll(cart.get().getItems());
                 items = bag.get().getItems();
+                bag.get().setTotalAmount(bag.get().getTotalAmount()+ amount);
                 bagRepository.save(bag.get());
             }
             else{
                 Bag bag2 = new Bag();
                 bag2.setUser(user);
                 bag2.getItems().addAll(cart.get().getItems());
+                bag2.setTotalAmount(amount);
                 items = bag2.getItems();
                 bagRepository.save(bag2);
             }
@@ -119,5 +138,15 @@ public class CartService {
             return items;
         }
         return null;
+    }
+    
+    public List<Items> getCartItems(String username){
+    	User user = userRepository.findByName(username).get();
+    	try {
+    	Optional<Cart> usercart = cartRepository.findByUser(user);
+        return usercart.get().getItems();
+    	}catch(Exception e) {
+    		return null;
+    	}
     }
 }

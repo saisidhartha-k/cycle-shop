@@ -7,7 +7,7 @@
             <th>Quantity</th>
             <th>Price</th>
             <th>Subtotal</th>
-            <th>Remove</th>
+            <th>RemoveItem</th>
           </tr>
         </thead>
         <tbody>
@@ -16,10 +16,10 @@
             <td>{{ item.quantity }}</td>
             <td>{{ item.cycle.price }} Rs</td>
             <td>{{ item.cycle.price * item.quantity}}</td>
-            <td><button (click)="removeCartItem(item.cycle.Id)">RemoveItem</button></td>
+            <td><button (click)="removeCartItem(item.cycle.cycleId)">Remove</button></td>
           </tr>
         </tbody>
       </table>
       <p>Total Amount: {{ totalAmount }}</p>
-      <button (click)="checkout()">Checkout</button>
+      <button (click)="checkout(totalAmount)">Checkout</button>
 </div>

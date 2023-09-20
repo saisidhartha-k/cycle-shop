@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CycleService } from '../app.service';
 
 
@@ -7,7 +7,7 @@ import { CycleService } from '../app.service';
   templateUrl: './cycles.component.html',
   styleUrls: ['./cycles.component.scss']
 })
-export class CyclesComponent {
+export class CyclesComponent implements OnInit{
   // cycleService: any;
   cycles: any;
   showCycles: boolean = true;
@@ -36,7 +36,7 @@ export class CyclesComponent {
         this.ngOnInit();
       },
 
-         );
+      );
   
   }
 }

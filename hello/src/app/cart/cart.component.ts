@@ -41,29 +41,31 @@ export class CartComponent implements OnInit {
     );
   }
 
-  checkout(): void {
-  this.cycleService.checkout().subscribe(
+  checkout(totalAmount:number): void {
+  this.cycleService.checkout(totalAmount).subscribe(
 
     (response: any) => {
 
       console.log('PUT request successful:', response);
       // this.cycleService.setData(response);
+      this.ngOnInit();
     },
 
     );  
-    this.ngOnInit();
   }
 
   removeCartItem(cycleId:any): void {
-    
-    this.cycleService.removeCartItem().subscribe(
+    console.log(cycleId);
+    this.cycleService.removeCartItem(cycleId,1).subscribe(
 
       (response: any) => {
   
         console.log('PUT request successful:', response);
         // this.cycleService.setData(response);
+        this.ngOnInit();
       },
   
       );
+      
   }
 }

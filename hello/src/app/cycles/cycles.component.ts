@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CycleService } from '../app.service';
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -10,10 +12,12 @@ import { CycleService } from '../app.service';
 export class CyclesComponent implements OnInit{
   // cycleService: any;
   cycles: any;
-  showCycles: boolean = true;
-  constructor( private cycleService :CycleService){}
-
+  showCycles: boolean = false;
+  constructor( private cycleService :CycleService, private authService:AuthService,private router:Router){
+  }
+  
   ngOnInit() {
+    console.log("cycle-data");
     this.cycleService.getCycles().subscribe((res: any) => {
       this.cycles = res;
     });
@@ -22,6 +26,7 @@ export class CyclesComponent implements OnInit{
 
   toggleDataVisibility() {
     this.showCycles = !this.showCycles;
+    this.ngOnInit();
   }
 
   borrowCycle(id: number) {
@@ -39,4 +44,10 @@ export class CyclesComponent implements OnInit{
       );
   
   }
+
+  logout():void{
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
+
 }

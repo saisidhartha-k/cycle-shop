@@ -1,11 +1,8 @@
-/* Reset some default styles */
-body, h1, h2, h3, p {
-    margin: 0;
-    padding: 0;
-  }
-  
-  /* Apply styles to the header and navbar */
-  header {
+.card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px auto;  header {
     background-color: #1a1a1a; /* Dark background color */
     color: #fff; /* Text color for the header */
     padding: 4px 0; /* Smaller vertical and horizontal padding */
@@ -49,15 +46,7 @@ body, h1, h2, h3, p {
     margin: 0 auto; /* Center the content horizontally */
     padding: 20px; /* Adjust the padding as needed */
   }
-  
-  /* Additional styles can be added to customize the appearance further */
-  
-/* Define styles for the card */
-.card {
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 20px;
-    margin: 20px auto;
+
     max-width: 600px; /* Adjust the maximum width as needed */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -105,3 +94,49 @@ button {
     margin-left: auto;
     margin-right: auto;
 }
+
+header {
+    background-color: #1a1a1a; /* Dark background color */
+    color: #fff; /* Text color for the header */
+    padding: 4px 0; /* Smaller vertical and horizontal padding */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Smaller shadow */
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px; /* Set your desired max width */
+    margin: 0 auto; /* Center the header horizontally */
+    padding: 0 8px; /* Smaller horizontal padding */
+  }
+  
+  /* Style the navigation list */
+  .nav-list {
+    list-style: none;
+    display: flex;
+    gap: 12px; /* Smaller gap between navigation items */
+  }
+  
+  .nav-list li a {
+    text-decoration: none;
+    color: #fff; /* Text color for navigation links */
+    font-weight: bold;
+    transition: color 0.3s, border-bottom 0.3s; /* Add transitions */
+    padding-bottom: 2px; /* Smaller underline effect on hover */
+    border-bottom: 2px solid transparent; /* Transparent underline initially */
+    font-size: 18px; /* Smaller font size */
+  }
+  
+  .nav-list li a:hover {
+    color: #ffa500; /* Change the color on hover */
+    border-bottom: 2px solid #ffa500; /* Add an underline on hover */
+  }
+  
+  /* Style the main content area as needed */
+  router-outlet {
+    max-width: 1200px; /* Set your desired max width */
+    margin: 0 auto; /* Center the content horizontally */
+    padding: 20px; /* Adjust the padding as needed */
+  }
+

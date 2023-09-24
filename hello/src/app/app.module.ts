@@ -9,7 +9,8 @@ import { CyclesComponent } from './cycles/cycles.component';
 import { BorrowedCyclesComponent } from './borrowed-cycles/borrowed-cycles.component';
 import { AddCyclesComponent } from './add-cycles/add-cycles.component';
 import { LoginFormComponent } from './login-form/login-form.component';
-import { CartComponent } from './cart/cart.component'; // Import FormsModule
+import { CartComponent } from './cart/cart.component';
+import { RentalRecordComponent } from './rental-record/rental-record.component'; // Import FormsModule
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { CartComponent } from './cart/cart.component'; // Import FormsModule
     BorrowedCyclesComponent,
     AddCyclesComponent,
     LoginFormComponent,
-    CartComponent
+    CartComponent,
+    RentalRecordComponent
   ],
   imports: [
     BrowserModule,

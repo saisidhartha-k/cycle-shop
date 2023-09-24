@@ -66,6 +66,7 @@ public class APIAuthController {
         Instant now = Instant.now();
 
         long expiry = 3600L;
+//        long expiry = 20L;
 
         var username = loginBody.getUsername();
 

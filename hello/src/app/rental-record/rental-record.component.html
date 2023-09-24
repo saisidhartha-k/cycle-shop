@@ -1,0 +1,40 @@
+
+<header>
+  <nav class="navbar">
+    <h1>Dashboard</h1>
+    <ul class="nav-list">
+      <li><a routerLink="/login">Login</a></li>
+      <!-- <li><a routerLink="/cycles">🚲</a></li> -->
+      <li><a routerLink="/cycles">Models</a></li>
+      <li><a routerLink="/cart">🛒</a></li>
+      <li><a routerLink="/AddCyclesComponent">Add a cycle</a></li>
+      <li><a routerLink="/rental-record">Rent Records</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="card">
+<table>
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Cycle Name</th>
+        <th>Quantity Rented</th>
+        <th>SubTotal</th>
+        <th>Total</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let userEntry of userData">
+        <tr *ngFor="let item of userEntry.items; let isFirst = first">
+          <td *ngIf="isFirst" [attr.rowspan]="userEntry.rowspan">{{ userEntry.user.name }}</td>
+          <td>{{ item.cycle.cycleName }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>{{ item.quantity * item.cycle.price }}</td>
+          <td *ngIf="isFirst" [attr.rowspan]="userEntry.rowspan">{{ userEntry.totalAmount }}</td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>

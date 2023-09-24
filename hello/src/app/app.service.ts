@@ -105,4 +105,12 @@ removeCartItem(cycleId:any,quantity:number): Observable<any>{
   return this._http.post(apiUrl, {}, {headers: headers,responseType:"text"});
 }
 
+getRentalRecord(): Observable<any>{
+  const headers = new HttpHeaders({
+    'Authorization': 'Bearer ' + localStorage.getItem('token') 
+  });
+  const apiUrl = `http://localhost:8080/api/cycles/all-Purchases`;
+  return this._http.get(apiUrl,{headers: headers});
+}
+
 }

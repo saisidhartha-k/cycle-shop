@@ -6,6 +6,7 @@ import { BorrowedCyclesComponent } from './borrowed-cycles/borrowed-cycles.compo
 import { AddCyclesComponent } from './add-cycles/add-cycles.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { CartComponent } from './cart/cart.component';
+import { RentalRecordComponent } from './rental-record/rental-record.component';
 
 
 const routes: Routes = [
@@ -13,8 +14,9 @@ const routes: Routes = [
   { path: 'cycles', component: CyclesComponent },
   { path: 'cart', component: CartComponent },
   { path: 'login', component: LoginFormComponent },
-  { path: '', redirectTo: '/cycles', pathMatch: 'full' },
-  { path: 'AddCyclesComponent', component: AddCyclesComponent }
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: 'AddCyclesComponent', component: AddCyclesComponent },
+  { path: 'rental-record', component: RentalRecordComponent }
 ];
 
 @NgModule({

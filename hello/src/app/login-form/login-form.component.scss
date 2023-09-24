@@ -1,0 +1,250 @@
+// /* Center align the form vertically and horizontally */
+// body {
+//     display: table-row;
+//     justify-content: center;
+//     align-items: center;
+//     height: 100vh;
+//     margin: 0;
+//   }
+  
+//   /* Style the form container */
+//   body > form {
+//     background-color: #f0f0f0;
+//     border-radius: 10px;
+//     padding: 20px;
+//     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+//     width: 300px;
+//     text-align: center;
+//   }
+  
+//   /* Style the form heading */
+//   h3 {
+//     color: #333;
+//   }
+  
+//   /* Style labels and input fields */
+//   label {
+//     display: block;
+//     margin-top: 10px;
+//     font-weight: bold;
+//     color: #555;
+//   }
+  
+//   input[type="text"],
+//   input[type="password"] {
+//     width: 100%;
+//     padding: 10px;
+//     margin-top: 5px;
+//     border: 1px solid #ccc;
+//     border-radius: 5px;
+//   }
+  
+//   /* Style the login button */
+//   button {
+//     background-color: #007bff;
+//     color: #fff;
+//     padding: 10px 20px;
+//     border: none;
+//     border-radius: 5px;
+//     cursor: pointer;
+//     margin-top: 15px;
+//   }
+  
+//   /* Add hover effect to the button */
+//   button:hover {
+//     background-color: #0056b3;
+//   }
+  
+
+/* Center align the form vertically and horizontally */
+// .loginform {
+//     display: table-row;
+//     justify-content: center;
+//     align-items: center;
+//     height: 100vh;
+//     margin: 0;
+//   }
+  
+//   /* Style the form container */
+//   form {
+//     background-color: #f0f0f0;
+//     border-radius: 10px;
+//     padding: 20px;
+//     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+//     width: 300px;
+//     text-align: center;
+//   }
+  
+//   /* Style the form heading */
+//   h3 {
+//     color: #333;
+//   }
+  
+//   /* Style labels and input fields */
+//   label {
+//     display: block;
+//     margin-top: 10px;
+//     font-weight: bold;
+//     color: #555;
+//   }
+  
+//   input[type="text"],
+//   input[type="password"] {
+//     width: 100%;
+//     padding: 10px;
+//     margin-top: 5px;
+//     border: 1px solid #ccc;
+//     border-radius: 5px;
+//   }
+  
+//   /* Style the login button */
+//   button {
+//     background-color: #007bff;
+//     color: #fff;
+//     padding: 10px 20px;
+//     border: none;
+//     border-radius: 5px;
+//     cursor: pointer;
+//     margin-top: 15px;
+//   }
+  
+//   /* Add hover effect to the button */
+//   button:hover {
+//     background-color: #0056b3;
+//   }
+
+    body {
+
+        font-family: Arial, sans-serif;
+
+        // background-color: #;
+
+        display: flex;
+
+        justify-content: center;
+
+        align-items: center;
+
+        height: 100vh;
+
+        margin: 0;
+
+    }
+
+    form {
+
+        background-color: #fff;
+
+        border-radius: 8px;
+
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+
+        padding: 20px;
+
+        text-align: center;
+
+        max-width: 400px;
+
+        width: 100%;
+
+    }
+
+
+    div {
+
+        margin-top: 10px;
+
+    }
+
+
+
+
+
+
+
+    label {
+
+        display: block;
+
+    }
+
+
+
+
+
+
+
+    input[type="text"],
+
+    input[type="password"] {
+
+        width: 100%;
+
+        padding: 10px;
+
+        margin-top: 5px;
+
+        border: 1px solid #ccc;
+
+        border-radius: 5px;
+
+        box-sizing: border-box; /* Ensure padding doesn't increase the width */
+
+    }
+
+
+
+
+
+
+
+    a {
+
+        display: block;
+
+        margin-top: 10px;
+
+        text-decoration: none;
+
+        text-shadow: #0056b3;
+
+        color: #007bff;
+
+    }
+
+
+
+
+
+
+
+    button {
+
+        background-color: #007bff;
+
+        color: #fff;
+
+        border: none;
+
+        padding: 10px 20px;
+
+        border-radius: 5px;
+
+        cursor: pointer;
+
+        margin-top: 10px;
+
+    }
+
+
+
+
+
+
+
+    button:hover {
+
+        background-color: #0056b3;
+
+    }
+  

@@ -11,11 +11,11 @@ export class AuthService {
 
   authUrl = 'http://localhost:8080/api/auth';
 
- 
+
 
   login(username: string, password: string): Observable<any> {
 
-    return this.http.post<any>(`${this.authUrl}/token`,{username:username, password:password}).pipe(
+    return this.http.post<any>(`${this.authUrl}/token`, { username: username, password: password }).pipe(
 
       tap(res => {
 
@@ -26,6 +26,11 @@ export class AuthService {
 
     );
 
-  } 
-  
+  }
+
+  logout(): void {
+    localStorage.setItem('token', '');
+    localStorage.setItem('username', '');
+  }
+
 }
